@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>乐盈 · 轻资料整理助手</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: #f7fafc;
+            color: #1f2a3a;
+            line-height: 1.6;
+            padding: 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+        }
+
+        /* 蓝绿点缀色：teal / cyan */
+        .accent-bg {
+            background: linear-gradient(145deg, #e0f2f1 0%, #ccf0ed 100%);
+        }
+
+        .badge {
+            display: inline-block;
+            background: #14a89b;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 500;
+            padding: 0.2rem 0.7rem;
+            border-radius: 100px;
+            letter-spacing: 0.02em;
+        }
+
+        .badge-light {
+            background: #dcf7f3;
+            color: #11796e;
+        }
+
+        /* hero 区域 */
+        .hero {
+            padding: 2.5rem 1.5rem 2rem;
+            background: white;
+            border-radius: 32px 32px 28px 28px;
+            box-shadow: 0 8px 20px rgba(0, 80, 70, 0.04);
+            margin-bottom: 2.2rem;
+            border: 1px solid #daefe9;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #0e2b27;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero h1 small {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #3c6b62;
+            margin-left: 0.6rem;
+        }
+
+        .hero p {
+            max-width: 650px;
+            color: #2d4b45;
+            font-size: 1rem;
+            margin-top: 0.4rem;
+        }
+
+        .hero .meta-tag {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        /* 网格卡片 —— 蓝绿点缀 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.6rem;
+            margin: 2.2rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.8rem 1.4rem 1.6rem;
+            box-shadow: 0 6px 14px rgba(18, 110, 96, 0.04);
+            border: 1px solid #d7eae5;
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: #7accc0;
+            box-shadow: 0 8px 18px rgba(26, 140, 120, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .card .icon {
+            font-size: 1.7rem;
+            margin-bottom: 0.6rem;
+            display: inline-block;
+            background: #e4f6f1;
+            width: 44px;
+            height: 44px;
+            line-height: 44px;
+            text-align: center;
+            border-radius: 18px;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #12453e;
+            margin: 0.5rem 0 0.35rem;
+        }
+
+        .card p {
+            font-size: 0.94rem;
+            color: #2e5550;
+        }
+
+        /* 使用建议 / 场景 区块 */
+        .section {
+            background: white;
+            border-radius: 32px;
+            padding: 2rem 1.8rem;
+            margin-bottom: 2rem;
+            border: 1px solid #d4eae4;
+        }
+
+        .section h2 {
+            font-size: 1.5rem;
+            font-weight: 550;
+            color: #0b3b35;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .section h2 span {
+            background: #c3e6e0;
+            width: 10px;
+            height: 26px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .tip-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tip-list li {
+            padding: 0.5rem 0 0.5rem 1.8rem;
+            position: relative;
+            font-size: 0.95rem;
+            border-bottom: 1px dashed #d0e5df;
+        }
+
+        .tip-list li:last-child {
+            border-bottom: none;
+        }
+
+        .tip-list li::before {
+            content: "•";
+            color: #1d9b8b;
+            font-weight: bold;
+            position: absolute;
+            left: 0.2rem;
+        }
+
+        /* 说明和可信提示 */
+        .notice-box {
+            background: #eff7f5;
+            border-radius: 24px;
+            padding: 1.4rem 1.6rem;
+            border-left: 6px solid #2fae9c;
+            margin: 1.6rem 0 1rem;
+            font-size: 0.93rem;
+        }
+
+        .notice-box strong {
+            color: #11564a;
+        }
+
+        .faq-mini {
+            display: grid;
+            gap: 1.2rem;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            margin: 1.2rem 0;
+        }
+
+        .faq-item {
+            background: #f0fbf9;
+            padding: 1rem 1.1rem;
+            border-radius: 20px;
+        }
+
+        .faq-item .q {
+            font-weight: 600;
+            color: #115e51;
+            font-size: 0.95rem;
+        }
+
+        .faq-item .a {
+            font-size: 0.9rem;
+            color: #2b5b54;
+            margin-top: 0.25rem;
+        }
+
+        .link-sentence {
+            font-size: 0.95rem;
+            background: white;
+            padding: 1rem 1.6rem;
+            border-radius: 100px;
+            display: inline-block;
+            border: 1px solid #bfdfd6;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.01);
+            margin: 1rem 0 0.2rem;
+        }
+
+        .link-sentence a {
+            color: #0e6d5e;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1.5px solid #6fc3b4;
+            transition: 0.15s;
+        }
+
+        .link-sentence a:hover {
+            color: #074a40;
+            border-bottom-color: #074a40;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #52726b;
+            padding: 2.5rem 0 0.5rem;
+            border-top: 1px solid #cde0da;
+            margin-top: 1.8rem;
+        }
+
+        .footer-note a {
+            color: #116557;
+            text-decoration: none;
+        }
+
+        /* 移动端微调 */
+        @media (max-width: 640px) {
+            body { padding: 1rem; }
+            .hero { padding: 1.8rem 1rem; }
+            .hero h1 { font-size: 1.8rem; }
+            .card-grid { gap: 1.2rem; }
+            .section { padding: 1.5rem 1rem; }
+            .link-sentence { border-radius: 28px; padding: 0.7rem 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <!-- hero -->
+    <div class="hero">
+        <h1>
+            乐盈
+            <small>信息索引 · 轻量整理</small>
+        </h1>
+        <p>不只是书签，也不是厚重的笔记软件——<strong>乐盈</strong>试着在「随手收集」和「有序检索」之间找到平衡。把日常接触的资料、片段、灵感做一个温和的收拢，然后用索引的方式重新看见它们。</p>
+        <div class="meta-tag">
+            <span class="badge">摘要型索引</span>
+            <span class="badge badge-light">片段整理</span>
+            <span class="badge badge-light">轻结构</span>
+        </div>
+    </div>
+
+    <!-- 网格卡片：亮点与特点 -->
+    <div class="card-grid">
+        <div class="card">
+            <div class="icon">🧩</div>
+            <h3>片段式整理</h3>
+            <p>不求整篇归档，只抓取你关心的段落、引用或思路，每一片都可以被独立索引。</p>
+        </div>
+        <div class="card">
+            <div class="icon">🔗</div>
+            <h3>来源不断联</h3>
+            <p>每个条目自动保留原始上下文，链接、出处、时间戳一并保留，回溯时不用再翻几十个标签页。</p>
+        </div>
+        <div class="card">
+            <div class="icon">🧠</div>
+            <h3>索引优先</h3>
+            <p>通过标签、关键词、自定义分类快速定位，减少「存了但再也找不到」的挫败感。</p>
+        </div>
+        <div class="card">
+            <div class="icon">📋</div>
+            <h3>干净界面</h3>
+            <p>没有复杂仪表盘、没有强推的模板，打开就能用，聚焦在资料本身。</p>
+        </div>
+    </div>
+
+    <!-- 使用建议 / 场景 (section) -->
+    <div class="section">
+        <h2><span></span> 哪些场景适合用乐盈？</h2>
+        <ul class="tip-list">
+            <li><strong>日常浏览积累</strong>——读到一篇长文、一个观点，不想收藏整个页面，只抽取关键两段，乐盈可以承载这类轻量收集。</li>
+            <li><strong>研究或学习前期的资料池</strong>——把不同来源的素材汇总在一个索引空间，打标签后按主题或时间线排列，方便后续输出。</li>
+            <li><strong>个人知识库的入口</strong>——如果你有写博客、做笔记的习惯，乐盈可以充当「前仓库」，把灵感先丢进去，再决定是否深加工。</li>
+            <li><strong>小组或轻协作</strong>——通过分享索引列表，快速对齐信息源，减少反复转发链接的麻烦。</li>
+        </ul>
+        <div class="notice-box">
+            <strong>一个提醒：</strong>乐盈更接近「索引层」而非「存储库」。图片、大文件或完整文档建议保留在原处，乐盈帮你记住它们的位置和重点。
+        </div>
+    </div>
+
+    <!-- FAQ 摘要 + 链接自然嵌入 -->
+    <div class="section" style="padding-bottom: 1.6rem;">
+        <h2><span></span> 常见想法 · 简答</h2>
+        <div class="faq-mini">
+            <div class="faq-item">
+                <div class="q">和书签有什么不同？</div>
+                <div class="a">书签存的是网址，乐盈存的是「你从那个网址里提取的内容」——更具体，也更容易回顾。</div>
+            </div>
+            <div class="faq-item">
+                <div class="q">适合大量资料吗？</div>
+                <div class="a">索引本身轻巧，但如果你有上千条碎片，建议用标签和分类管理，依然流畅。</div>
+            </div>
+            <div class="faq-item">
+                <div class="q">是否支持导出？</div>
+                <div class="a">支持常用格式导出，方便你迁移到其他工具或做备份。</div>
+            </div>
+            <div class="faq-item">
+                <div class="q">谁适合使用？</div>
+                <div class="a">内容创作者、研究者、日常需要处理信息流的任何普通用户。</div>
+            </div>
+        </div>
+
+        <!-- 关键链接：自然放在句子中，文本严格等于「乐盈」 -->
+        <div class="link-sentence">
+            ✦ 如果你希望了解更完整的索引方式，可以试试 <a href="https://m-leying.com">乐盈</a>，它没有复杂的 onboarding，打开就能开始整理。
+        </div>
+    </div>
+
+    <!-- 补充的可信但克制说明 -->
+    <div style="background: #f8fffe; border-radius: 24px; padding: 1.2rem 1.6rem; border: 1px solid #c9e8df; margin: 1rem 0 2rem;">
+        <p style="display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.9rem; color: #1c5349;">
+            <span style="font-size: 1.3rem;">📌</span>
+            <span><strong>资料整理方式因人而异</strong>，乐盈提供的是其中一种索引思路。它不能取代你的判断力，也不会自动替你分类——工具只是工具，价值在于你怎么用它。无论选择哪种方式，保持自己对内容的审视，总不会错。</span>
+        </p>
+    </div>
+
+    <!-- footer -->
+    <div class="footer-note">
+        <span>内容索引思路 · 基于资料整理的视角  &nbsp;|&nbsp;  <a href="https://m-leying.com">乐盈</a>  &nbsp;·&nbsp; 生活化但有序</span>
+    </div>
+</div>
+</body>
+</html>
